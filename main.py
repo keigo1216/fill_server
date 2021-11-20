@@ -56,14 +56,14 @@ class MyHandler(BaseHTTPRequestHandler):
 def importargs():
     parser = argparse.ArgumentParser("This is the simple server")
 
-    parser.add_argument('--host', '-H', required=False, default='localhost')
-    parser.add_argument('--port', '-P', required=False, type=int, default=8090)
+    parser.add_argument('--host', '-H', required=False, default='0.0.0.0')
+    parser.add_argument('--port', '-P', required=False, type=int, default=8080)
 
     args = parser.parse_args()
 
     return args.host, args.port
 
-def run(server_class=HTTPServer, handler_class=MyHandler, server_name='localhost', port=8090):
+def run(server_class=HTTPServer, handler_class=MyHandler, server_name='0.0.0.0', port=8080):
 
     server = server_class((server_name, port), handler_class)
     server.serve_forever()
