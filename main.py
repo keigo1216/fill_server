@@ -5,6 +5,7 @@ import argparse
 import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import annealing
+import os
 
 class MyHandler(BaseHTTPRequestHandler):
 
@@ -57,13 +58,13 @@ def importargs():
     parser = argparse.ArgumentParser("This is the simple server")
 
     parser.add_argument('--host', '-H', required=False, default='0.0.0.0')
-    parser.add_argument('--port', '-P', required=False, type=int, default=8080)
+    parser.add_argument('--port', '-P', required=False, type=int, default=os.environ['PORT'])
 
     args = parser.parse_args()
 
     return args.host, args.port
 
-def run(server_class=HTTPServer, handler_class=MyHandler, server_name='0.0.0.0', port=8080):
+def run(server_class=HTTPServer, handler_class=MyHandler, server_name='0.0.0.0', port=os.environ['PORT']):
 
     server = server_class((server_name, port), handler_class)
     server.serve_forever()
